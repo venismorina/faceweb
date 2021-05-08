@@ -1,0 +1,68 @@
+{% extends 'cpanel/main.html' %}
+{% block content %}
+{% load method %}
+
+    <div id="content mt-10">
+        <div class="">
+           
+      
+            <div class="clearfix mt-10">
+                <div class="col-lg-12 ">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Table Filter</h2>
+                        </div>
+                        <div class="body">
+                            <!-- <button type="button" class="btn mb-1 btn-simple btn-sm btn-default btn-filter" data-target="all">Todos</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-success btn-filter" data-target="approved">Approved</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-warning btn-filter" data-target="suspended">Suspended</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-info btn-filter" data-target="pending">Pending</button>
+                            <button type="button" class="btn mb-1 btn-simple btn-sm btn-danger btn-filter" data-target="blocked">Blocked</button> -->
+                            <div class="table-responsive m-t-20">
+                                <table class="table m-b-0 border" >   
+                                    <thead>
+                                        
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Place</th>
+                                            <th>Working Hours</th>
+                                            <th>Hours</th>
+                                            <th></th>
+                                            <th>Other</th>
+                                        
+                                    </thead>                             
+                                    <tbody>
+                                        {% for user in users %}
+                                        <tr data-status="approved">
+                                            <td>{{user.id}}</td>
+                                            <!-- <td><div class="media-object"></div></td> -->
+                                            <td>{{user.name}}</td>
+                                            <td>{{user.get_place}}</td>
+                                            <td>{{user.work_hours}}</td>
+                                            <td width="250px">
+                                                
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar l-{% call_method user 'progress_color_date' date %}" role="progressbar" aria-valuenow="{%call_method user 'progress_time_date' date%}" aria-valuemin="0" aria-valuemax="100" style="width: {%call_method user 'progress_time_date' date%}%;"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-{% call_method user 'today_time_color_date' date %}">{%call_method user 'today_time' date%}</span></td>
+                                            <td>
+                                                <a class="btn btn-sm btn-info" href="{% url 'cpanel-user' user.id %}"> Calendar </a> 
+                                                &nbsp;&nbsp; <a class="btn btn-sm btn-primary" href="{% url 'cpanel-detections' %}/{{user.id}}"> Detections </a>
+                                                &nbsp;&nbsp; <a class="btn btn-sm btn-secondary" href="{% url 'cpanel-update' user.id %}"> Update </a> 
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {% endblock content %}

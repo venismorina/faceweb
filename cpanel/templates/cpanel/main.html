@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+{% load method %}
+
+<head>
+    <title>Face | {{ title }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Lucid Bootstrap 4.1.1 Admin Template">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{% static 'cpanel/assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'cpanel/assets/css/color_skins.css' %}">
+    <style>
+        .without::-webkit-datetime-edit-ampm-field {
+            display: none;
+        }
+
+        input[type=time]::-webkit-clear-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="t">
+
+
+
+    <div id="wrapper">
+        <div class="text-center header p-5 title">
+            <h1>{{ title }}</h1>
+        </div>
+
+        {%block content%}
+
+        {%endblock%}
+    </div>
+
+
+</body>
+
+</html>
