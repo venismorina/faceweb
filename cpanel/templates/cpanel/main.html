@@ -46,10 +46,17 @@
 
 
     <div id="wrapper">
-        <div class="text-center header p-5 title">
-            <h1>{{ title }}</h1>
-        </div>
+        <div>
 
+            
+
+            <div class="text-center header p-5 title" >
+                <h1>{{ title }}</h1>
+            </div>
+            
+            <a style="position: absolute; top: 55px; right: 30px; color: #5A5A5A; font-size: 1.5rem;" href="/logout" class="icon-menu"><i class="icon-login"></i></a>
+               
+        </div>
         {%block content%}
 
         {%endblock%}

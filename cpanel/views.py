@@ -5,6 +5,7 @@ from sendreq.functions import *
 from datetime import date
 from sendreq.models import Detection , myUser
 from .forms import *
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -12,6 +13,8 @@ from .forms import *
 
 
 def Detections(request, user = None, date = None):
+    if not request.user.is_authenticated:
+        return redirect('/login')
     detections = Detection.objects.all()
     title = "Detections"
 
@@ -38,6 +41,8 @@ def Detections(request, user = None, date = None):
 
 
 def Index(request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
     year = datetime.now().year
     month = datetime.now().month
     if month < 10:
@@ -76,6 +81,8 @@ def Index(request):
 
 
 def Users(request, date):
+    if not request.user.is_authenticated:
+        return redirect('/login')
     users = myUser.objects.all()
     title = "Users"
     title += " | " + datetime.strftime(datetime.strptime(date, "%Y-%m-%d"), "%d %b,%Y")
@@ -89,6 +96,8 @@ def Users(request, date):
 
 
 def User(request,pk):
+    if not request.user.is_authenticated:
+        return redirect('/login')
     user = myUser.objects.filter(pk=pk).first()
 
     title = user.name
@@ -132,6 +141,8 @@ def User(request,pk):
 
 
 def Update(request,pk):
+    if not request.user.is_authenticated:
+        return redirect('/login')
     user = myUser.objects.filter(pk=pk).first()
 
     if request.method == "POST":
@@ -151,3 +162,25 @@ def Update(request,pk):
     return render(request, 'cpanel/update.html', context)
 
 
+def loginview(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            form = LoginForm(request.POST)
+            error = "Emri ose Fjalkalimi eshte gabim!"
+            return render(request, 'cpanel/signin.html', {'form': form, "error": error})
+    else:
+        form = LoginForm()
+        return render(request, 'cpanel/signin.html', {'form': form})
+
+def logoutview(request):
+    logout(request)
+    return redirect('/login')
+    
