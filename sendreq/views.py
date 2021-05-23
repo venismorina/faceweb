@@ -7,7 +7,12 @@ import json
 import base64
 from django.core.files.base import ContentFile
 from .functions import *
+from django import forms
+import os
 
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
 
 @csrf_exempt
 def register_face(request):
@@ -90,3 +95,21 @@ def get_name(request):
             return HttpResponse("Error[2]: Username or Password is wrong!")
     else:
         return HttpResponse("Error[0a]: Could Not Register User!")
+
+
+@csrf_exempt
+def upload_encodings(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                os.remove("static/encodings.pickle")
+            except:
+                pass
+            with open('static/encodings.pickle', 'wb+') as destination:
+                for chunk in request.FILES['file'].chunks():
+                    destination.write(chunk)
+            with open('static/backup/{}.pickle'.format(request.POST['title']), 'wb+') as destination:
+                for chunk in request.FILES['file'].chunks():
+                    destination.write(chunk)
+            return HttpResponse("Encodings uploaded")

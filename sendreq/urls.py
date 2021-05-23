@@ -6,4 +6,5 @@ urlpatterns = [
     path('register-user', views.register_user, name= "register_user"),
     path('get-names', views.get_names, name="get_names"),
     path('get-name', views.get_name, name="get_name"),
+    path('upload-encodings', views.upload_encodings, name="upload_encodings"),
 ]
